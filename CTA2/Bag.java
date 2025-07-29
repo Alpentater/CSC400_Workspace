@@ -46,34 +46,36 @@ public class Bag<T> {
 		}
 		return toPrint;
 	}
-	
+	//==============================================================================
 	//========BELOW THIS COMMENT ARE FUNCITONS ADDED FOR THE MODULE 2 CTA.==========
+	//==============================================================================
+
 	//This function returns the size of a bag in integer.
 	public int size(){
 		return items.size();
 	}
 
 	//This function will return a combination of the two lists.
-	public ArrayList<T> merge(ArrayList<T> bagOne, ArrayList<T> bagTwo){
-		ArrayList<T> newList = new ArrayList<T>();
-		newList.addAll(bagOne);
-		newList.addAll(bagTwo);
-		return newList;
+	public Bag merge(Bag<T> bagOne, Bag<T> bagTwo){
+		Bag<T> newBag = new Bag<T>();
+		bagOne.items.addAll(bagTwo.items);
+		newBag = bagOne;
+		return newBag;
 	}
 
 	//This function returns all distinct elements in a list.
-	public ArrayList<T> distinct(ArrayList<T> originalList){
-		ArrayList<T> newList = new ArrayList<T>();
+	public Bag distinct(Bag<T> originalBag){
+		Bag<T> newBag = new Bag<T>();
 		//This for loop goes through and adds each item into the list starting from the 0th slot...
 		//...it checks if the one being added is already in the list before adding.
-		for(int i = 0; i < originalList.size(); i++){
+		for(int i = 0; i < originalBag.items.size(); i++){
 			//If the new list does NOT contain what is trying to be added from original list...
-			if(!newList.contains(originalList(i))){
+			if(!newBag.items.contains(originalBag.items.get(i))){
 				//... then add it to the new list.
-				newList.add(originalList(i));
+				newBag.items.add(originalBag.items.get(i));
 			}
 		}
-		return newList;
+		return newBag;
 	}
 
 	//Main entry point for testing the program.
@@ -99,13 +101,18 @@ public class Bag<T> {
 		//Printing the size of both bags.
 		System.out.println("Size of bag 1: " + myBagOne.size());
 		System.out.println("Size of bag 2: " + myBagTwo.size());
-		//STUCK HERE
-		//Creating a new list that will become the two merged lists... and then merging them.
-		ArrayList<T> mergedList = merge(myBagOne, myBagTwo);
 
-		//Printing the merged list.
-		System.out.println(mergedList.printList());
-
+		//Merging the two bags together.
+		Bag<Integer> mergedBag = myBagOne.merge(myBagOne, myBagTwo);
+        System.out.println("Merged Bag Contents:");
+        
 		
+		//Printing the contents of the merged bag.
+		System.out.println(mergedBag.printList());
+
+		//Getting only the distinct elements from merged bag
+        Bag<Integer> distinctBag = mergedBag.distinct(mergedBag);
+        System.out.println("Distinct Bag Contents:");
+        System.out.println(distinctBag.printList());
 	}
 }
